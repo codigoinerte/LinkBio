@@ -5,6 +5,7 @@ import type { LandingResponse } from "../types/landing";
 import "../styles/landing.css";
 import { themes } from "@/mock/theme";
 import { LandingContent } from "./LandingContent";
+import type { ColorId, IdColor } from "@/admin/types/design";
 
 
 const BASE_IMAGE = import.meta.env.VITE_BASE_URL_WALLPAPER;
@@ -14,6 +15,7 @@ interface Props {
     promise: Promise<LandingResponse>;
 }
 
+type ColorIdUndefined = ColorId | undefined
 
 export const LandingProfile = ({ promise }: Props) => {
 
@@ -32,9 +34,16 @@ export const LandingProfile = ({ promise }: Props) => {
         bio,
         links,
         projects,
-        is_verified
+        is_verified,
+        wallpaper_pattern_type,
+        wallpaper_color_type,
+        wallpaper_color_custom,
     } = response.data!;
 
+    const ColorId: ColorIdUndefined = wallpaper_type === "color" ? {
+        id: wallpaper_color_type as IdColor,
+        custom: wallpaper_color_custom
+    }: undefined;
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
@@ -69,5 +78,7 @@ export const LandingProfile = ({ promise }: Props) => {
         links={links}
         projects={projects}
         is_verified={is_verified}
+        ColorId={ColorId}
+        patternId={wallpaper_pattern_type}
     />
 }

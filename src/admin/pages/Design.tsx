@@ -8,12 +8,15 @@ import { useForm } from "react-hook-form";
 import type { FormTypes } from "../types/design";
 import WallpaperAction from "../actions/wallpaper.actions";
 import { toast } from "sonner";
+import { themes } from "@/mock/theme";
+import { useLandingStore } from "@/context/landingContext";
 
 type sectionKey = "profile" | "theme" | "wallpaper" | "style";
 type reference = HTMLDivElement | null;
 
 export const Design = () => {
 
+    const setTheme = useLandingStore(state => state.setTheme);
     
     const wallpaper = new WallpaperAction();
     
@@ -40,6 +43,13 @@ export const Design = () => {
         },
         
     });
+
+    const themeIdSelected = watch("themeId");
+    const wallpaperIdSelected = watch("wallpaperId");
+    const colorIdSelected = watch("colorId");
+    const fileSelected = watch("file");
+    const patternIdSelected = watch("patternId");
+
 
     const onSubmit = async (params:FormTypes) => {
         const payload: FormTypes = {
@@ -69,14 +79,40 @@ export const Design = () => {
             setValue('colorId', response.profileDesign?.colorId);
             setValue('file', response.profileDesign.file);
             setValue('patternId', response.profileDesign?.patternId);
-
+            
         })();
       
       return () => {
         
       }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, []);
+    
+
+    useEffect(() => {
+
+        const themeSelected = themes.find(theme => theme.id === themeIdSelected)!;
+
+        setTheme({
+            accent: themeSelected?.accent ?? '',
+            preview: themeSelected?.preview ?? '',
+            textColor: themeSelected?.textColor ?? '',
+            wallpaper_type: wallpaperIdSelected ?? "pattern",
+
+            ...((fileSelected && fileSelected instanceof File) ? {wallpaperImage: URL.createObjectURL(fileSelected) } : {}),
+
+            ...(wallpaperIdSelected == "color" && colorIdSelected ? { ColorId: colorIdSelected}: {} ),
+            
+            ...(wallpaperIdSelected == "pattern" && patternIdSelected ? { patternId: patternIdSelected }: {})
+        });
+      
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [themeIdSelected,
+        wallpaperIdSelected,
+        colorIdSelected,
+        fileSelected,
+        patternIdSelected,
+    ])
     
 
     return (

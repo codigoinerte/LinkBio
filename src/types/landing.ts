@@ -1,4 +1,4 @@
-import type { WallpaperOptionId } from "@/admin/types/design";
+import type { ColorId, WallpaperOptionId } from "@/admin/types/design";
 import type { Link, Project } from "@/front/types/landing";
 
 export interface Landing {
@@ -13,5 +13,7 @@ export interface Landing {
     bio:            string;
     links:          Link[]
     accent:         string;
-    projects:       Project[]
+    projects:       Project[];
+    ColorId?:       ColorId;
+    patternId?:      string;
 }

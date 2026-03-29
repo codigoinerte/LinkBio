@@ -1,4 +1,4 @@
-import type { Theme } from "@/admin/types/design";
+import type { SuggestedColor, Theme } from "@/admin/types/design";
 
 export const themes: Theme[] = [
   {
@@ -110,3 +110,63 @@ export const themes: Theme[] = [
     badgeColor: "bg-black/40",
   },
 ]
+
+export const suggestedColors: SuggestedColor[] = [
+  { id: "add", color: "bg-gradient-to-r from-pink-500 to-orange-400", isAddButton: true },
+  { id: "dark", color: "bg-gray-800" },
+  { id: "medium", color: "bg-gray-600" },
+  { id: "light", color: "bg-gray-200" },
+  { id: "black", color: "bg-black" },
+]
+
+export const patternOptions = [
+    {
+        id: "grid",
+        name: "Grid",
+        style: {
+            backgroundColor: "#111827",
+            backgroundImage:
+                "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)",
+            backgroundSize: "14px 14px",
+        },
+    },
+    {
+        id: "dots",
+        name: "Dots",
+        style: {
+            backgroundColor: "#1f2937",
+            backgroundImage: "radial-gradient(rgba(255,255,255,0.18) 1px, transparent 1px)",
+            backgroundSize: "12px 12px",
+        },
+    },
+    {
+        id: "stripes",
+        name: "Stripes",
+        style: {
+            backgroundColor: "#374151",
+            backgroundImage:
+                "repeating-linear-gradient(45deg, rgba(255,255,255,0.12), rgba(255,255,255,0.12) 6px, transparent 6px, transparent 12px)",
+        },
+    },
+    {
+        id: "waves",
+        name: "Waves",
+        style: {
+            backgroundColor: "#0f172a",
+            backgroundImage:
+                "radial-gradient(circle at 100% 50%, transparent 20%, rgba(255,255,255,0.12) 21%, rgba(255,255,255,0.12) 34%, transparent 35%, transparent), radial-gradient(circle at 0% 50%, transparent 20%, rgba(255,255,255,0.12) 21%, rgba(255,255,255,0.12) 34%, transparent 35%, transparent)",
+            backgroundSize: "20px 30px",
+        },
+    },
+    {
+        id: "noise",
+        name: "Noise",
+        style: {
+            backgroundColor: "#334155",
+            backgroundImage:
+                "radial-gradient(rgba(255,255,255,0.18) 0.8px, transparent 0.8px), radial-gradient(rgba(255,255,255,0.12) 0.8px, transparent 0.8px)",
+            backgroundPosition: "0 0, 4px 4px",
+            backgroundSize: "8px 8px",
+        },
+    },
+] as const

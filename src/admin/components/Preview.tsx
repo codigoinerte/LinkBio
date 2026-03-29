@@ -6,6 +6,7 @@ import { themes } from '@/mock/theme';
 import { useEffect, useRef } from 'react';
 
 import { DeviceFrameset } from 'react-device-frameset'
+import { type IdColor } from '../types/design';
 import 'react-device-frameset/styles/marvel-devices.min.css'
 
 const BASE_IMAGE = import.meta.env.VITE_BASE_URL_WALLPAPER;
@@ -39,7 +40,11 @@ export const Preview = () => {
                 bio,
                 links,
                 projects,
-                is_verified
+                is_verified,
+
+                wallpaper_color_type,
+                wallpaper_color_custom,
+                wallpaper_pattern_type,
             } = response.data!;
 
             const { preview, accent, textColor } = themes.find(theme => theme.id === theme_id)!;
@@ -60,8 +65,12 @@ export const Preview = () => {
                 links,
                 projects,
                 is_verified,
+                ColorId: {
+                    id: wallpaper_color_type as IdColor,
+                    custom: wallpaper_color_custom
+                },
+                patternId: wallpaper_pattern_type,
             });
-
 
             loading.current = false;
 
@@ -72,7 +81,7 @@ export const Preview = () => {
     
 
     return (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center sticky top-4.5">
             <DeviceFrameset device="iPhone 8" color="gold">
                 <LandingContent {...landingParams} stylesContainerInner={{ margin: "0px auto 0px auto"}}/>
             </DeviceFrameset>            

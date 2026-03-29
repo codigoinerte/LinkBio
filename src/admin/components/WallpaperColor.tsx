@@ -1,15 +1,8 @@
 import { Controller, useFormState } from 'react-hook-form'
-import type { SuggestedColor, WallpaperColorProps } from '../types/design'
+import type { WallpaperColorProps } from '../types/design'
 import { useEffect } from 'react';
 import { toast } from 'sonner';
-
-const suggestedColors: SuggestedColor[] = [
-  { id: "add", color: "bg-gradient-to-r from-pink-500 to-orange-400", isAddButton: true },
-  { id: "dark", color: "bg-gray-800" },
-  { id: "medium", color: "bg-gray-600" },
-  { id: "light", color: "bg-gray-200" },
-  { id: "black", color: "bg-black" },
-]
+import { suggestedColors } from '@/mock/theme';
 
 export const WallpaperColor = ({ control, watch, clearErrors, setValue }: WallpaperColorProps) => {
     
