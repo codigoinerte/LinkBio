@@ -46,6 +46,7 @@ const HeadingLanding =  ({name, headline}: HeadingLandingProps) => {
 }
 
 const ProfileLanding = ({ wallpaper_type, photoImage, is_verified }:ProfileLandingProps) => {
+    const noImage = "/assets/images/no-profile-picture-icon.webp";
     return (
         <>
             <div    className={clsx(`border-3 border-white rounded-full relative shadow-md`, {                
@@ -54,13 +55,13 @@ const ProfileLanding = ({ wallpaper_type, photoImage, is_verified }:ProfileLandi
                 
             })}
                     style={{
-                        backgroundImage: `url(${photoImage})`,
+                        backgroundImage: `url(${photoImage || noImage})`,
                         backgroundPosition: "center center",
                         backgroundRepeat: "no-repeat",
                         backgroundSize: "cover",
                     }}>
                 {
-                    is_verified && (
+                    is_verified ? (
                         <div className={clsx("absolute bottom-0 w-auto", {
                             "right-0 ": wallpaper_type == "image",
                             "-right-2.5": wallpaper_type != "image",
@@ -72,7 +73,7 @@ const ProfileLanding = ({ wallpaper_type, photoImage, is_verified }:ProfileLandi
                                 </g>
                             </svg>
                         </div>
-                    )
+                    ) : ''
                 }
             </div>
         </>
@@ -104,7 +105,7 @@ export const LandingContent:React.FC<Landing & InnerProps> = ({
     const [showModal, setShowModal] = useState<Project | null>();
     const colorById:string = suggestedColors.find(color => color.id == ColorId?.id)?.color ?? "bg-white";
     const ColorCustom = useMemo(()=> ColorId?.custom ?? "bg-white", [ColorId?.custom]);
-    
+    const noImageBg = "/assets/images/no-image.webp";
     return (
         <div className="w-dwh h-full flex flex-1 bg-neutral-900"
                     style={{ height: "100vh", flex: 1, ...stylesContainer }}>
@@ -133,7 +134,7 @@ export const LandingContent:React.FC<Landing & InnerProps> = ({
                             wallpaper_type == "image" && (
                                 <div className="w-full rounded-md min-h-50 shadow-md" style={{
                                     ...(wallpaper_type == "image" ? {
-                                            backgroundImage: `url(${wallpaperImage})`,
+                                            backgroundImage: `url(${wallpaperImage || noImageBg})`,
                                             backgroundPosition: "center center",
                                             backgroundRepeat: "no-repeat",
                                             backgroundSize: "cover"

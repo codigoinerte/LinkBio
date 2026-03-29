@@ -13,7 +13,7 @@ interface RenderItemsProps {
 
 const RenderItems = ({ files, handleDeleteImage }: RenderItemsProps) => {
     
-    if(!files) return;
+    if(!files || files.length === 0) return;
 
     return files.map((file, index) => {        
         const isFile = file instanceof File;

@@ -39,7 +39,7 @@ export const Design = () => {
     const { control, watch, setValue, handleSubmit, clearErrors, } = useForm<FormTypes>({
         defaultValues:{
             themeId: "air",
-            wallpaperId: "color"
+            wallpaperId: "image"
         },
         
     });

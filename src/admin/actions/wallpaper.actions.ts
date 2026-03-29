@@ -15,7 +15,7 @@ class WallpaperAction {
                 colorId: data.profileDesign!.colorId,
                 patternId: data.profileDesign!.patternId,
                 
-                file: data.profileDesign?.file ? BASE_IMAGE + `/` +data.profileDesign.file : undefined,
+                file: data.profileDesign?.file && data.profileDesign?.file != "null" ? BASE_IMAGE + `/` +data.profileDesign.file : undefined,
             }
         };
     }
