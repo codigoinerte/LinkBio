@@ -22,3 +22,8 @@ export interface ProfilePhotoResponse {
 export interface ProfilePhotoDeleteResponse {
     message: string;
 }
+
+/* profile account delete response */
+export interface ProfileAccountDeleteResponse {
+    message: string;
+}

@@ -1,4 +1,5 @@
 import { useEffect, type PropsWithChildren } from "react"
+import { twMerge } from "tailwind-merge";
 
 interface Props extends PropsWithChildren{
     title: string,
@@ -6,6 +7,7 @@ interface Props extends PropsWithChildren{
     showCloseButton?: boolean,
     disableButtons?:boolean,
     onSubmitMessage?:string,
+    classNameSubmit?:string,
     onClose: () => void,
     onSubmit?: () => Promise<void>,
 }
@@ -16,6 +18,7 @@ export const Modal:React.FC<Props> = ({
     showCloseButton = false,
     disableButtons = false,
     onSubmitMessage = "Save",
+    classNameSubmit,
     onClose,
     onSubmit
 }) => {
@@ -72,7 +75,7 @@ export const Modal:React.FC<Props> = ({
                                 }
                                 <button 
                                     type="button" 
-                                    className="text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none bg-purple-600 rounded-3xl flex-1 w-full text-white cursor-pointer"
+                                    className={twMerge("text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none bg-purple-600 rounded-3xl flex-1 w-full text-white cursor-pointer", classNameSubmit)}
                                     onClick={onSubmit}>{onSubmitMessage}</button>
                             </div>
                         )

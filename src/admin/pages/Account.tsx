@@ -9,9 +9,10 @@ import type { SubmitHandler } from "react-hook-form";
 import { useEffect, useRef, useState } from "react";
 import { useCheckNickname } from "@/hooks/useCheckNickname";
 import { Textarea } from "@/components/ui/textarea";
-import { updateBioAction } from "../actions/updateBio.action";
+import { deleteAccount, updateBioAction } from "../actions/updateBio.action";
 import type { RequestBio } from "../types/bio.response";
 import { toast } from "sonner";
+import { Modal } from "@/components/custom/Modal";
 
 // type Inputs = {
 //     name: string;
@@ -19,8 +20,29 @@ import { toast } from "sonner";
 //     password?: string;
 //     bio?: string;
 // }
+interface ModalProps {
+  show: boolean;
+  title: string;
+  onClose: () => void;
+  onSubmit: () => Promise<void>;
+}
 
 export const Account = () => {
+
+  const [modalDeleteProps, setModalDeleteProps] = useState<ModalProps>({
+      title: "Delete account",
+      show: false,
+      onSubmit: async ()=> console.log("eliminado !"),
+      onClose: () => {
+        setModalDeleteProps((prev) => ({
+          ...prev,
+          show: false,
+        }));
+      },
+  });
+
+  const logout = useUserStore(state => state.logout);
+
   const [isPosting, setIsPosting] = useState(false);
   const nickNameRef = useRef<HTMLInputElement>(null);
 
@@ -99,6 +121,18 @@ export const Account = () => {
 
     setIsPosting(false);
   };
+
+  /* handle delete account */
+  const handleDeleteAccount = async () => {
+    try {
+      await deleteAccount(true);
+      toast.success("Eliminación exitosa, Adios!");
+      setTimeout(()=> logout(), 500);
+    } catch (error) {
+      console.log(error);
+      toast.warning("Hubo un error al intentar eliminar la cuenta, vuelva a intentar más tarde");
+    }
+  }
 
   return (
     <>
@@ -292,9 +326,14 @@ export const Account = () => {
                     profiles.
                   </p>
                   <Button
+                    type="button"
                     variant="outline"
                     className="w-full sm:w-auto border-red-300 text-red-600 hover:bg-red-50 hover:border-red-400 hover:text-red-700 bg-transparent cursor-pointer"
-                  >
+                    onClick={()=> setModalDeleteProps((prev) => ({
+                                    ...prev,
+                                    show: true,
+                                    onSubmit: handleDeleteAccount,
+                                }))}>
                     Delete account
                   </Button>
                 </div>
@@ -303,6 +342,20 @@ export const Account = () => {
           </div>
         </form>
       </div>
+
+      <Modal
+        title={modalDeleteProps.title}
+        show={modalDeleteProps.show}
+        showCloseButton={true}
+        onClose={modalDeleteProps.onClose}
+        onSubmit={modalDeleteProps.onSubmit}
+        onSubmitMessage="Delete account"
+        classNameSubmit="bg-red-500"
+      >
+        <div className="py-4 text-center">
+          <p>Esta seguro que desea eliminar su cuenta ? <br/> <span className="text-gray-500 text-sm">Una vez su cuenta este eliminada no podra recuperar ninguna configuración hecha</span></p>
+        </div>
+      </Modal>
     </>
   );
 };
