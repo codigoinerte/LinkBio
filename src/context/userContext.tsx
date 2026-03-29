@@ -4,6 +4,7 @@ import { loginExternalAction } from '@/front/actions/login.external.action';
 import { registerAction } from '@/front/actions/register.action';
 import type { User } from '@/front/types/auth.response';
 import { Cookie } from '@/helpers/cookies';
+import type { SuccessResponse } from '@greatsumini/react-facebook-login';
 import type { TokenResponse } from '@react-oauth/google';
 import { create } from 'zustand';
 
@@ -21,6 +22,7 @@ interface State {
     updateProfile: (user: User) => void;
     updateProfilePhoto: (photo:string) => void;
     google: (tokenResponse: Omit<TokenResponse, "error" | "error_description" | "error_uri">) => Promise<boolean>;
+    facebook: (token: SuccessResponse) => Promise<boolean>;
 }
 
 const initialState = {
@@ -96,7 +98,17 @@ export const useUserStore = create<State>((set, get) => ({
             set({ user: null, token: null, state: 'no-auth'})
             return false;
         }        
+    },
+    facebook: async (token: SuccessResponse): Promise<boolean> => {
+        try {
+            const { user, access_token } = await loginExternalAction.facebook(token);
+            set({ user, token: access_token, state: 'auth'})
+            Cookie.set(COOKIE_NAME, access_token, 1);
+            return true;            
+        } catch {
+            set({ user: null, token: null, state: 'no-auth'})
+            return false;
+        }    
     }
-    
         
 }));
