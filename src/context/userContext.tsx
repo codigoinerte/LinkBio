@@ -1,8 +1,10 @@
 import { checkAction } from '@/front/actions/check.action';
 import { loginAction } from '@/front/actions/login.action';
+import { loginExternalAction } from '@/front/actions/login.external.action';
 import { registerAction } from '@/front/actions/register.action';
 import type { User } from '@/front/types/auth.response';
 import { Cookie } from '@/helpers/cookies';
+import type { TokenResponse } from '@react-oauth/google';
 import { create } from 'zustand';
 
 // type operation = 'signIn' | 'signUp';
@@ -18,6 +20,7 @@ interface State {
     check: () => Promise<boolean>;
     updateProfile: (user: User) => void;
     updateProfilePhoto: (photo:string) => void;
+    google: (tokenResponse: Omit<TokenResponse, "error" | "error_description" | "error_uri">) => Promise<boolean>;
 }
 
 const initialState = {
@@ -82,6 +85,17 @@ export const useUserStore = create<State>((set, get) => ({
             photo
         }
         set({ user });
+    },
+    google: async (tokenResponse: Omit<TokenResponse, "error" | "error_description" | "error_uri">):Promise<boolean> => {
+        try {
+            const { user, access_token } = await loginExternalAction.google(tokenResponse);
+            set({ user, token: access_token, state: 'auth'})
+            Cookie.set(COOKIE_NAME, access_token, 1);
+            return true;            
+        } catch {
+            set({ user: null, token: null, state: 'no-auth'})
+            return false;
+        }        
     }
     
         

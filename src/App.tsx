@@ -6,6 +6,9 @@ import { QueryClientProvider, QueryClient, useQuery } from '@tanstack/react-quer
 import type { PropsWithChildren } from 'react';
 import { useUserStore } from './context/userContext';
 import { CustomFullScreenLoading } from './components/custom/CustomFullScreenLoading';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 const queryClient = new QueryClient()
 
@@ -27,12 +30,14 @@ const CheckAuthProvider = ({children}:PropsWithChildren) => {
 const App = () => { 
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <CheckAuthProvider>
-          <RouterProvider router={router} />
-        </CheckAuthProvider>
-      </QueryClientProvider>
-      <Toaster position="top-right" expand={true}/>
+      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+        <QueryClientProvider client={queryClient}>
+          <CheckAuthProvider>
+            <RouterProvider router={router} />
+          </CheckAuthProvider>
+        </QueryClientProvider>
+        <Toaster position="top-right" expand={true}/>
+      </GoogleOAuthProvider>
     </>
   )
 }
