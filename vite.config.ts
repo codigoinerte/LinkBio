@@ -2,14 +2,11 @@ import path from "path";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
-import basicSsl from '@vitejs/plugin-basic-ssl'
 
 // https://vite.dev/config/
 export default defineConfig({
   base: '/',
-  plugins: [react(), tailwindcss(), basicSsl({
-    
-  })],
+  plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
