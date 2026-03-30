@@ -25,6 +25,7 @@ export const useLogin = () => {
     
     const login = useUserStore(state => state.login);
     const register = useUserStore(state => state.register);
+    const refresh = useUserStore(state => state.refresh);
     
     const handleSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -75,6 +76,10 @@ export const useLogin = () => {
         toast.warning('Vuelva a intentar más tarde');
     }
 
+    const handleRevalidateBearer = async ():Promise<void> => {
+        await refresh();
+    }
+
     return {
         //values
         isPosting,
@@ -84,10 +89,12 @@ export const useLogin = () => {
         signUpEmail,
         signUpPassword,
         signUpnickname,
+        hasBearer: 
 
         //methods
         setIsPosting,
         handleSignIn,
         handleSignUp,
+        handleRevalidateBearer
     }
 }

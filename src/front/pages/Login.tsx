@@ -66,6 +66,7 @@ export const Login = () => {
                     placeholder="Enter your email" 
                     autoComplete="false"
                     required 
+                    defaultValue={"john.doe@example.com"}
                   />
                 </div>
                 <div className="space-y-2">
@@ -78,6 +79,7 @@ export const Login = () => {
                     placeholder="Enter your password"
                     className="border-1 border-neutral-300 focus-visible:ring-gray-100" 
                     required
+                    defaultValue={"123456"}
                   />
                 </div>
                 <Button 

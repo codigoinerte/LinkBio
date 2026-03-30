@@ -10,8 +10,9 @@ interface Props {
 }
 
 export const PublicRouter: React.FC<Props> = ({ element, redirectToDashboard=true }) => {
-    const isAuth = useUserStore((state) => state.isAuth);
-    const { hasBearer, handleRevalidateBearer, state } = useLogin();
+    const isAuth = useUserStore((state) => state.state) === "auth";
+    const hasBearer = !!useUserStore((state) => state.token);
+    const { handleRevalidateBearer, state } = useLogin();
     const [loading, setLoading] = useState(true);
     const validated = useRef(false);
 

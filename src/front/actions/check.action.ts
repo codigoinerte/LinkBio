@@ -19,3 +19,19 @@ export const checkAction = async ():Promise<AuthResponse> => {
         throw new Error('Token expired');
     }
 }
+
+export const revalidateToken = async ():Promise<AuthResponse> => {
+
+    const token = Cookie.get(COOKIE_NAME);
+    if(!token) throw new Error('No token found');
+
+    try {
+        const { data } = await api.post<AuthResponse>('/auth/refresh');
+        Cookie.set(COOKIE_NAME, data.access_token, 1);
+        return  data;
+        
+    } catch {
+        Cookie.delete(COOKIE_NAME);
+        throw new Error('Token expired');
+    }
+}

@@ -20,7 +20,7 @@ export const DropdownAuth = () => {
                 
                     <div className="flex flex-row gap-2 cursor-pointer">
                         <Avatar className="h-8 w-8 rounded-lg">
-                            <AvatarImage src={user?.avatar} alt={user?.name} />
+                            <AvatarImage src={user?.photo ?? ""} alt={user?.name} />
                             <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                         </Avatar>
                         

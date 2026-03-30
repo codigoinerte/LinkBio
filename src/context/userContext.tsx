@@ -1,4 +1,4 @@
-import { checkAction } from '@/front/actions/check.action';
+import { checkAction, revalidateToken } from '@/front/actions/check.action';
 import { loginAction } from '@/front/actions/login.action';
 import { loginExternalAction } from '@/front/actions/login.external.action';
 import { registerAction } from '@/front/actions/register.action';
@@ -19,6 +19,7 @@ interface State {
     register: (nickname:string, email:string, password:string) => Promise<boolean>;
     logout: () => void;
     check: () => Promise<boolean>;
+    refresh: () => Promise<void>;
     updateProfile: (user: User) => void;
     updateProfilePhoto: (photo:string) => void;
     google: (tokenResponse: Omit<TokenResponse, "error" | "error_description" | "error_uri">) => Promise<boolean>;
@@ -73,6 +74,13 @@ export const useUserStore = create<State>((set, get) => ({
         } catch {
             set({ user: null, token: null, state: 'no-auth'})
             return false;
+        }
+    },
+    refresh: async() => {
+        try {
+            await revalidateToken();
+        } catch {
+            set({ user: null, token: null, state: 'no-auth'})
         }
     },
     updateProfile: async (user:User) => {

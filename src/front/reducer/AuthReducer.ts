@@ -1,4 +1,5 @@
-import type { User } from "@/types/user.interface";
+import type { User } from "../types/auth.response";
+
 
 type operation = 'signIn' | 'signUp';
 type stateOperation  = 'auth' | 'checking' | 'no-auth';

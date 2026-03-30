@@ -9,8 +9,9 @@ interface Props {
 }
 
 export const PrivateRouter: React.FC<Props> = ({ element }) => {
-    const isAuth = useUserStore((state) => state.isAuth);
-    const { hasBearer, handleRevalidateBearer } = useLogin();
+    const isAuth = useUserStore((state) => state.state) === "auth";
+    const hasBearer = !!useUserStore((state) => state.token);
+    const { handleRevalidateBearer } = useLogin();
 
 
     const { isLoading } = useQuery({ 
