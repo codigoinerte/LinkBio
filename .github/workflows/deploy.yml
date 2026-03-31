@@ -19,7 +19,7 @@ jobs:
         key: ${{ secrets.VPS_SSH_KEY }}
         port: ${{ secrets.VPS_PORT }}
         script: |
-          cd /var/www/tu-proyecto
+          cd /var/www/aboutme
           git config --global --add safe.directory /var/www/aboutme
           git pull origin main
           pnpm install
