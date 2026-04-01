@@ -13,7 +13,7 @@ export const Logo: React.FC<Props> = ({className = '', IconContentClassName = ''
         <div className={cn(`w-8 h-8 bg-indigo-700 rounded-full flex items-center justify-center`, IconContentClassName)}>
             <LinkIcon className={cn(`w-5 h-5`, IConClassName)} color="#fff" />
         </div>
-        <span className={cn(`text-xl font-semibold text-black`, TextClassName)}>About.me</span>
+        <span className={cn(`text-xl font-semibold text-black`, TextClassName)}>Aboutme</span>
     </div>
   )
 }
