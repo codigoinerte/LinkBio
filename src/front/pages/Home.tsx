@@ -16,23 +16,25 @@ export const Home = () => {
                         <div className="text-center lg:text-left">
 
                             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight mb-6">
-                                Your own personal profile page  
+                                Tu perfil tipo Linktree, ahora con proyectos
                             </h1>
                         
                             <p className="text-gray-600 text-lg mb-8 max-w-lg mx-auto lg:mx-0">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem quod est cum soluta omnis, blanditiis placeat nemo enim? Vero suscipit et soluta illum perferendis accusantium, iste numquam molestias porro aliquid.
+                                Crea una sola pagina para compartir tus enlaces mas importantes y destacar tus proyectos con imagenes, descripcion y acceso directo.
                             </p>
                         
-                            <button className="bg-indigo-600 hover:bg-indigo-900 text-white px-8 py-4 rounded-full font-semibold text-lg transition-colors inline-flex items-center group">
-                                Sign up and try free
+                            <a 
+                                className="bg-indigo-600 hover:bg-indigo-900 text-white px-8 py-4 rounded-full font-semibold text-lg transition-colors inline-flex items-center group"
+                                href='/auth'>
+                                Crea tu perfil gratis
                                 <ChevronRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                            </button>
+                            </a>
                         </div>
                         
                         {/* Right Content - Featured Artwork */}
                         <div className="relative">
                             <div className="text-center mb-8">
-                                <img src='./assets/images/2148850827.jpg' alt='mockup' title='mockup' className='rounded-3xl' />
+                                <img src='./assets/images/fc7366bd7a104be9a2e905bdce6440dc.webp' alt='mockup' title='mockup' className='rounded-3xl' />
                             </div>
                         </div>
                         
