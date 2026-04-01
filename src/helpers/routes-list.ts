@@ -5,6 +5,6 @@ export const routes = {
   account: "/admin/account",
   dashboard: "/admin/dashboard",
   design: "/admin/design",
-  profile: "/admin/profile",
-  settings: "/admin/settings"
+  profile: "/admin/account",
+  settings: "/admin/design/profile"
 }
