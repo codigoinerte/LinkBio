@@ -230,18 +230,10 @@ export const DashboardTabLink = memo(({ selected }: Props) => {
                     </Avatar>
                     <div className="flex-1 min-w-0">
                         <h1 className="font-semibold text-lg text-gray-900">
-                        {
-                            isPreviewShort == true ? (
-                                <a href={`/${user?.nickname}`} target='_blank' className='flex flex-row items-center gap-2'>
-                                    {user?.name ?? user?.nickname} <ExternalLink className='w-3 h-3' />
-                                </a>
-                            ) : (
-                                <a href={`//${user?.nickname}.${window.location.host}`} target='_blank' className='flex flex-row items-center gap-2'>
-                                    {user?.name ?? user?.nickname} <ExternalLink className='w-3 h-3' />
-                                </a>
-                            )
-                        }
-                        <a href=''></a>
+                        <a href={`/${user?.nickname}`} target='_blank' className='flex flex-row items-center gap-2'>
+                            {user?.name ?? user?.nickname} <ExternalLink className='w-3 h-3' />
+                        </a>
+                        
                         </h1>
                         {user?.bio && (
                         <p className="text-sm text-gray-600 leading-relaxed">
